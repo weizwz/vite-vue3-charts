@@ -18,4 +18,8 @@ const { namePic, token } = storeToRefs(userStore)
   <div>Hello: {{ namePic }}, your name is {{ username }}, your token is {{ token }}</div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+div {
+  margin: 0 auto;
+}
+</style>
