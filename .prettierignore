@@ -1,0 +1,11 @@
+node_modules
+dist
+public
+*.md
+*.txt
+*.scss
+*.woff
+*.ttf
+.vscode
+.idea
+index.html
