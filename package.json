@@ -14,6 +14,7 @@
     "@kjgl77/datav-vue3": "^1.7.1",
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.6.2",
+    "echarts": "^5.4.3",
     "js-cookie": "^3.0.5",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
