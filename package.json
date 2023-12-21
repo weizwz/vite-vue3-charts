@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@kjgl77/datav-vue3": "^1.7.1",
     "@types/js-cookie": "^3.0.6",
     "axios": "^1.6.2",
     "js-cookie": "^3.0.5",

@@ -2,7 +2,7 @@
 
 ## 简介
 
-vite+vue3+ts+datav-vue3+echarts 大屏展示
+vite5+vue3+ts+datav-vue3+echarts 大屏展示
 
 ## 运行
 
