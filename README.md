@@ -1,8 +1,8 @@
-# weiz-vue3-template
+# weiz-vue3-charts
 
 ## 简介
 
-Vite4+Typescript+Vue3+Pinia 项目模板
+vite+vue3+ts+datav-vue3+echarts 大屏展示
 
 ## 运行
 
