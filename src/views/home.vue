@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@store/user'
 
@@ -12,14 +12,29 @@ const userStore = useUserStore()
 const username = computed(() => userStore.userInfo.name)
 // 获取getter使用storeToRefs，或者直接使用，在模板里 userStore.namePic
 const { namePic, token } = storeToRefs(userStore)
+
+let loading = ref(true)
+const loaded = () => {
+  setTimeout(() => {
+    loading.value = false
+  }, 1000)
+}
+loaded()
 </script>
 
 <template>
-  <div>Hello: {{ namePic }}, your name is {{ username }}, your token is {{ token }}</div>
+  <div id="home">
+    <dv-loading v-if="loading">
+      <div color-white>Loading...</div>
+    </dv-loading>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-div {
-  margin: 0 auto;
+#home {
+  width: 100%;
+  height: 100%;
+  background-color: #030409;
+  color: #fff;
 }
 </style>
