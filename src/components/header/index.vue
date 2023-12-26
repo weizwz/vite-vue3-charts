@@ -1,0 +1,74 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useUserStore } from '@store/user'
+
+const userStore = useUserStore()
+// 获取state使用computed或者使用storeToRefs，直接使用不具备响应式（拿到的永远是初次的值）
+const username = computed(() => userStore.userInfo.name)
+
+defineOptions({
+  name: 'WHeader'
+})
+</script>
+
+<template>
+  <div class="w-header">
+    <div class="logo">WEIZWZ</div>
+    <div class="title">西安热力资源监控</div>
+    <div class="info">{{ username }}</div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.w-header {
+  height: 80px;
+  padding: 0 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logo {
+    flex: 1;
+    font-size: 2rem;
+  }
+  .info {
+    flex: 1;
+    text-align: right;
+    font-size: 1.2rem;
+  }
+  .title {
+    flex: 1;
+    font-size: 3rem;
+    text-align: center;
+    --c: var(--main-color);
+    --w1: radial-gradient(100% 57% at top, #0000 100%, var(--c) 100.5%) no-repeat;
+    --w2: radial-gradient(100% 57% at bottom, var(--c) 100%, #0000 100.5%) no-repeat;
+    background: var(--w1), var(--w2), var(--w1), var(--w2);
+    background-position-x:
+      -200%,
+      -100%,
+      0%,
+      100%;
+    background-position-y: 100%;
+    background-size: 50.5% 100%;
+    animation: m 1s infinite linear;
+    font-weight: bold;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-stroke: 2px var(--c);
+  }
+
+  @keyframes m {
+    0% {
+      background-position-x:
+        -200%,
+        -100%,
+        0%,
+        100%;
+    }
+
+    100% {
+      background-position-x: 0%, 100%, 200%, 300%;
+    }
+  }
+}
+</style>
