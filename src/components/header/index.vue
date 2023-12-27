@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, defineProps } from 'vue'
 import { useUserStore } from '@store/user'
-const logo = ref('/src/assets/logo.png')
 
 const userStore = useUserStore()
 // 获取state使用computed或者使用storeToRefs，直接使用不具备响应式（拿到的永远是初次的值）
@@ -10,6 +9,20 @@ const username = computed(() => userStore.userInfo.name)
 defineOptions({
   name: 'WHeader'
 })
+// 组件传参
+const props = defineProps({
+  logo: {
+    type: String, //参数类型
+    default: '/src/assets/logo.png', //默认值
+    required: false //是否必须传递
+  },
+  title: {
+    type: String, //参数类型
+    default: '监控平台', //默认值
+    required: true //是否必须传递
+  }
+})
+const logo = ref(props.logo)
 </script>
 
 <template>
@@ -19,7 +32,7 @@ defineOptions({
     </div>
     <div class="title-wrapper">
       <dv-decoration7>
-        <div class="title">&nbsp;西安热力资源监控中心&nbsp;</div>
+        <div class="title">&nbsp;{{ props.title }}&nbsp;</div>
       </dv-decoration7>
     </div>
     <div class="info">{{ username }}</div>
@@ -29,7 +42,7 @@ defineOptions({
 <style lang="scss" scoped>
 .w-header {
   height: 80px;
-  padding: 0 50px;
+  padding: 0 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
