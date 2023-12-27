@@ -26,7 +26,7 @@ const props = defineProps({
   }
 })
 
-let chart
+let chart: { setOption: (arg0: Record<string, any>) => void; resize: () => void }
 
 //声明周期函数，自动执行初始化
 onMounted(() => {
