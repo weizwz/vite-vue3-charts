@@ -2,13 +2,13 @@
 import WChart from '@comp/chart/index.vue'
 
 defineOptions({
-  name: 'ChartAnnular'
+  name: 'ChartArea'
 })
 
 const option = {
   legend: {
     show: true,
-    top: 20
+    top: 15
   },
   tooltip: {
     show: true
@@ -58,7 +58,7 @@ const option = {
 </script>
 
 <template>
-  <WChart width="100%" height="calc(33.33% - 2rem)" :option="option" />
+  <WChart width="100%" height="calc(33.33% - 3rem)" :option="option" />
 </template>
 
 <style lang="scss" scoped></style>

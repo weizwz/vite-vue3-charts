@@ -37,7 +37,7 @@ loaded()
         <div class="main-right">
           <div class="main-right-top">
             <div class="main-right-top-left">
-              <dv-border-box11 title="市区热力分布" :title-width="400" :animate="true">
+              <dv-border-box11 title="西安市热力分布" :title-width="400" :animate="true">
                 <div dv-bg class="content padding1">dv-border-box-11</div>
               </dv-border-box11>
             </div>

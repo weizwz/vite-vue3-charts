@@ -41,7 +41,7 @@ const config = reactive({
 </script>
 
 <template>
-  <dv-capsule-chart :config="config" style="width: 100%; height: calc(33.33% - 2rem)" />
+  <dv-capsule-chart :config="config" style="width: 100%; height: calc(33.33% - 2.5rem)" />
 </template>
 
 <style lang="scss" scoped></style>
