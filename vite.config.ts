@@ -12,7 +12,8 @@ const pathResolve = (dir: string): string => {
 const alias: Record<string, string> = {
   '@': pathResolve('src'),
   '@views': pathResolve('src/views'),
-  '@store': pathResolve('src/store/modules')
+  '@store': pathResolve('src/store/modules'),
+  '@comp': pathResolve('src/components')
 }
 
 // https://vitejs.dev/config/

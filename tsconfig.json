@@ -11,7 +11,9 @@
     "baseUrl": ".", // 查询的基础路径
     "paths": { // 路径映射,配合别名使用
       "@/*": ["src/*"],
+      "@views/*": ["src/views/*"],
       "@store/*": ["src/store/modules/*"],
+      "@comp/*": ["src/components/*"],
       "@build/*": ["build/*"],
       "#/*": ["types/*"]
     },

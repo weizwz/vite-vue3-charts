@@ -4,12 +4,11 @@ import WHeader from '@/components/header/index.vue'
 import { BorderBox13 as DvBorderBox13 } from '@kjgl77/datav-vue3'
 import { BorderBox11 as DvBorderBox11 } from '@kjgl77/datav-vue3'
 import { BorderBox8 as DvBorderBox8 } from '@kjgl77/datav-vue3'
+import WLeft from '@views/home/left.vue'
 
 defineOptions({
   name: 'V-home'
 })
-
-const title = '西安热力资源监控中心'
 
 let loading = ref(true)
 const loaded = () => {
@@ -26,11 +25,13 @@ loaded()
       <dv-loading v-if="loading">
         <div color-white>Loading...</div>
       </dv-loading>
-      <WHeader :title="title" />
+      <WHeader title="西安热力资源监控中心" />
       <div id="main">
         <div class="main-left">
           <dv-border-box13>
-            <div dv-bg class="content padding1">dv-border-box-13</div>
+            <div dv-bg class="content padding1">
+              <WLeft />
+            </div>
           </dv-border-box13>
         </div>
         <div class="main-right">
