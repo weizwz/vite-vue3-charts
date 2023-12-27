@@ -72,7 +72,7 @@ const logo = ref(props.logo)
       100%;
     background-position-y: 100%;
     background-size: 50.5% 100%;
-    animation: m 2s infinite linear;
+    animation: m 3s infinite linear;
     font-weight: bold;
     color: transparent;
     background-clip: text;

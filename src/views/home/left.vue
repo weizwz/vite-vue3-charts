@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ChartTitle from '@comp/chartTitle/index.vue'
 import ChartSchedule from '@comp/chartSchedule/index.vue'
+import ChartAnnular from '@comp/chartAnnular/index.vue'
 
 defineOptions({
   name: 'WLeft'
@@ -8,8 +9,12 @@ defineOptions({
 </script>
 
 <template>
-  <ChartTitle title="设备统计" />
+  <ChartTitle title="热力设备分布" />
   <ChartSchedule />
+  <dv-decoration2 :dur="6" style="width: 100%; height: 0.2rem" />
+  <ChartTitle title="能源消耗趋势" />
+  <ChartAnnular />
+  <dv-decoration2 :dur="6" style="width: 100%; height: 0.2rem" />
 </template>
 
 <style lang="scss" scoped></style>
