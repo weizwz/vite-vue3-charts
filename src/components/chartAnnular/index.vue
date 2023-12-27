@@ -6,11 +6,17 @@ defineOptions({
 })
 
 const option = {
-  tooltip: {},
+  legend: {
+    show: true,
+    top: 20
+  },
+  tooltip: {
+    show: true
+  },
   grid: {
     top: '20',
     left: '10',
-    right: '10',
+    right: '20',
     bottom: '20',
     containLabel: true
   },
@@ -29,10 +35,15 @@ const option = {
       stack: 'Total',
       smooth: true,
       areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [120, 132, 101, 134, 90, 230, 210]
+      data: [100, 132, 101, 134, 90, 230, 210]
+    },
+    {
+      name: '水力',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      areaStyle: {},
+      data: [120, 130, 200, 165, 158, 226, 180]
     },
     {
       name: '煤炭',
@@ -40,10 +51,7 @@ const option = {
       stack: 'Total',
       smooth: true,
       areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [220, 182, 191, 234, 290, 330, 310]
+      data: [128, 182, 191, 134, 190, 130, 110]
     }
   ]
 }

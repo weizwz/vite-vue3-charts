@@ -11,10 +11,10 @@ defineOptions({
 <template>
   <ChartTitle title="热力设备分布" />
   <ChartSchedule />
-  <dv-decoration2 :dur="6" style="width: 100%; height: 0.2rem" />
+  <dv-decoration2 :dur="6" style="width: 100%; height: 0.3rem; margin-bottom: 0.7rem" />
   <ChartTitle title="能源消耗趋势" />
   <ChartAnnular />
-  <dv-decoration2 :dur="6" style="width: 100%; height: 0.2rem" />
+  <dv-decoration2 :dur="6" style="width: 100%; height: 0.3rem; margin-bottom: 0.7rem" />
 </template>
 
 <style lang="scss" scoped></style>
