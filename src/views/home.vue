@@ -5,6 +5,7 @@ import { BorderBox13 as DvBorderBox13 } from '@kjgl77/datav-vue3'
 import { BorderBox11 as DvBorderBox11 } from '@kjgl77/datav-vue3'
 import { BorderBox8 as DvBorderBox8 } from '@kjgl77/datav-vue3'
 import WLeft from '@views/home/left.vue'
+import WCenter from '@views/home/center.vue'
 
 defineOptions({
   name: 'V-home'
@@ -37,8 +38,10 @@ loaded()
         <div class="main-right">
           <div class="main-right-top">
             <div class="main-right-top-left">
-              <dv-border-box11 title="西安市热力分布" :title-width="400" :animate="true">
-                <div dv-bg class="content padding1">dv-border-box-11</div>
+              <dv-border-box11 title="西安热力分布" :title-width="300" :animate="true">
+                <div dv-bg class="content padding1">
+                  <div class="content-map"><WCenter /></div>
+                </div>
               </dv-border-box11>
             </div>
             <div class="main-right-top-right">
@@ -88,7 +91,12 @@ loaded()
           width: calc(66.66% - var(--margin));
           margin-right: var(--margin);
           .content {
-            padding-top: 3rem;
+            padding: 3.5rem 1rem 1rem;
+            .content-map {
+              width: 100%;
+              height: 100%;
+              position: relative;
+            }
           }
         }
         .main-right-top-right {

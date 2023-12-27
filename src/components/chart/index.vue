@@ -13,16 +13,24 @@ const props = defineProps({
     required: false //是否必须传递
   },
   height: {
-    type: String, //参数类型
-    default: '10rem', //默认值
-    required: true //是否必须传递
+    type: String,
+    default: '10rem',
+    required: true
   },
   option: {
-    type: Object, //参数类型
+    type: Object,
     default: () => {
       return {}
-    }, //默认值
-    required: true //是否必须传递
+    },
+    required: true
+  },
+  initBefore: {
+    type: Function,
+    required: false
+  },
+  initAfter: {
+    type: Function,
+    required: false
   }
 })
 
@@ -46,7 +54,15 @@ function init() {
 
   chart = echarts.init(dom, 'weizwz')
   // 渲染图表
-  chart.setOption(props.option)
+  if (props.initBefore) {
+    props.initBefore(chart).then((data: Record<string, any>) => {
+      chart.setOption(data)
+      if (props.initAfter) props.initAfter(chart)
+    })
+  } else {
+    chart.setOption(props.option)
+    if (props.initAfter) props.initAfter(chart)
+  }
 }
 
 function resize() {

@@ -34,5 +34,8 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     '@typescript-eslint/no-explicit-any': 'off'
+  },
+  globals: {
+    BMap: true
   }
 }
