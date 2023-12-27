@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useUserStore } from '@store/user'
+const logo = ref('/src/assets/logo.png')
 
 const userStore = useUserStore()
 // 获取state使用computed或者使用storeToRefs，直接使用不具备响应式（拿到的永远是初次的值）
@@ -13,8 +14,14 @@ defineOptions({
 
 <template>
   <div class="w-header">
-    <div class="logo">WEIZWZ</div>
-    <div class="title">西安热力资源监控</div>
+    <div class="logo">
+      <img :src="logo" alt="logo" width="120" />
+    </div>
+    <div class="title-wrapper">
+      <dv-decoration7>
+        <div class="title">&nbsp;西安热力资源监控中心&nbsp;</div>
+      </dv-decoration7>
+    </div>
     <div class="info">{{ username }}</div>
   </div>
 </template>
@@ -29,6 +36,9 @@ defineOptions({
   .logo {
     flex: 1;
     font-size: 2rem;
+    > img {
+      vertical-align: middle;
+    }
   }
   .info {
     flex: 1;
@@ -36,7 +46,6 @@ defineOptions({
     font-size: 1.2rem;
   }
   .title {
-    flex: 1;
     font-size: 3rem;
     text-align: center;
     --c: var(--main-color);
@@ -50,10 +59,10 @@ defineOptions({
       100%;
     background-position-y: 100%;
     background-size: 50.5% 100%;
-    animation: m 1s infinite linear;
+    animation: m 2s infinite linear;
     font-weight: bold;
     color: transparent;
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-stroke: 2px var(--c);
   }
 
