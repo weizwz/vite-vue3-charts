@@ -6,6 +6,7 @@ import { BorderBox11 as DvBorderBox11 } from '@kjgl77/datav-vue3'
 import { BorderBox8 as DvBorderBox8 } from '@kjgl77/datav-vue3'
 import WLeft from '@views/home/left.vue'
 import WCenter from '@views/home/center.vue'
+import WRight from '@views/home/right.vue'
 
 defineOptions({
   name: 'V-home'
@@ -46,7 +47,7 @@ loaded()
             </div>
             <div class="main-right-top-right">
               <dv-border-box13>
-                <div dv-bg class="content padding1">dv-border-box-13</div>
+                <div dv-bg class="content padding1"><WRight /></div>
               </dv-border-box13>
             </div>
           </div>
@@ -96,6 +97,8 @@ loaded()
               width: 100%;
               height: 100%;
               position: relative;
+              border-radius: 1rem;
+              overflow: hidden;
             }
           }
         }
