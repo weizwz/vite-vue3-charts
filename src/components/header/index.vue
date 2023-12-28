@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, defineProps } from 'vue'
+import { computed, defineProps, onMounted, ref } from 'vue'
 import { useUserStore } from '@store/user'
+import logoImg from '@/assets/logo.png'
 
 const userStore = useUserStore()
 // 获取state使用computed或者使用storeToRefs，直接使用不具备响应式（拿到的永远是初次的值）
@@ -13,7 +14,7 @@ defineOptions({
 const props = defineProps({
   logo: {
     type: String, //参数类型
-    default: '/src/assets/logo.png', //默认值
+    default: logoImg, //默认值
     required: false //是否必须传递
   },
   title: {
@@ -22,13 +23,19 @@ const props = defineProps({
     required: true //是否必须传递
   }
 })
-const logo = ref(props.logo)
+
+const logoDom = ref()
+//声明周期函数，自动执行初始化
+onMounted(() => {
+  const dom = logoDom.value
+  dom.src = props.logo
+})
 </script>
 
 <template>
   <div class="w-header">
     <div class="logo">
-      <img :src="logo" alt="logo" width="120" />
+      <img ref="logoDom" alt="logo" width="120" />
     </div>
     <div class="title-wrapper">
       <dv-decoration7>

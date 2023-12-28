@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 import axios from 'axios'
 import WChart from '@comp/chart/index.vue'
 import 'echarts/extension/bmap/bmap'
+import xianJson from '@/assets/xian.json'
 
 defineOptions({
   name: 'ChartMap'
@@ -39,26 +40,18 @@ const option = {
 }
 
 const initBefore = () => {
-  return new Promise((resolve, reject) => {
-    axios.get('src/assets/xian.json').then(
-      (resp) => {
-        const { data } = resp
-        // 处理数据
-        const arr = []
-        for (const item of data.features) {
-          const positions = item.geometry.coordinates[0][0]
-          for (const temp of positions) {
-            const position = temp.concat(Math.random() * 1000 + 200)
-            arr.push(position)
-          }
-        }
-        option.series[0].data = arr
-        resolve(option)
-      },
-      (error) => {
-        reject(error)
+  return new Promise((resolve) => {
+    // 处理数据
+    const arr = []
+    for (const item of xianJson.features) {
+      const positions = item.geometry.coordinates[0][0]
+      for (const temp of positions) {
+        const position = temp.concat(Math.random() * 1000 + 200)
+        arr.push(position)
       }
-    )
+    }
+    option.series[0].data = arr
+    resolve(option)
   })
 }
 
