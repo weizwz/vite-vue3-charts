@@ -39,3 +39,7 @@ npm run build
   127.0.0.1         haha.com
   ```
 3. 本地访问地址，使用 `haha.com:8000`，即可正常访问百度地图API
+
+## 文档
+### 1. vite+vue3 配合 echarts 使用文档
+[vue3+ts打开echarts的正确方式](https://weizwz.com/posts/a31b36c6.html)
