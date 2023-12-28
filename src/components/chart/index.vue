@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, getCurrentInstance, defineProps, defineExpose, ref } from 'vue'
+import { onMounted, getCurrentInstance, defineExpose, ref } from 'vue'
 
 defineOptions({
   name: 'WChart'
