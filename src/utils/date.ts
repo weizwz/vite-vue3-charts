@@ -1,13 +1,15 @@
-export const get_date = (num: number) => {
+export const get_date = (num: number, setYear: boolean) => {
   const dateArray = []
   //获取今天日期
   const myDate = new Date()
-  const today = myDate.getMonth() + 1 + '/' + myDate.getDate()
+  let today = myDate.getMonth() + 1 + '/' + myDate.getDate()
+  if (setYear) today = myDate.getFullYear() + '/' + today
   myDate.setDate(myDate.getDate() - num)
   let dateTemp // 临时日期数据
   const flag = 1
   for (let i = 0; i < num; i++) {
     dateTemp = myDate.getMonth() + 1 + '/' + myDate.getDate()
+    if (setYear) dateTemp = myDate.getFullYear() + '/' + dateTemp
     dateArray.push({
       date: dateTemp
     })

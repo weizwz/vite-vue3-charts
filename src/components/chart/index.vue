@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { onMounted, getCurrentInstance, defineProps } from 'vue'
+import { onMounted, getCurrentInstance, defineProps, defineExpose } from 'vue'
 
 defineOptions({
   name: 'WChart'
+})
+defineExpose({
+  setData
 })
 
 // 组件传参
@@ -56,7 +59,7 @@ function init() {
   // 渲染图表
   if (props.initBefore) {
     props.initBefore(chart).then((data: Record<string, any>) => {
-      chart.setOption(data)
+      setData(data)
       if (props.initAfter) props.initAfter(chart)
     })
   } else {
@@ -67,6 +70,10 @@ function init() {
 
 function resize() {
   chart.resize()
+}
+// 父组件可调用，设置动态数据
+function setData(option: Record<string, any>) {
+  chart.setOption(option)
 }
 </script>
 

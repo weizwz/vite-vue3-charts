@@ -7,7 +7,7 @@ defineOptions({
   name: 'ChartBar'
 })
 
-const axis = get_date(30)
+const axis = get_date(30, false)
 const area = ['雁塔区', '未央区', '碑林区', '莲湖区', '新城区', '灞桥区', '长安区']
 const maxT = 10
 const minT = -4
