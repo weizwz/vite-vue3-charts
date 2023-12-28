@@ -1,4 +1,4 @@
-import { Router, createRouter, createWebHistory } from 'vue-router'
+import { Router, createRouter, createWebHashHistory } from 'vue-router'
 
 /** 自动导入 src/router/modules 下的静态路由
  * import.meta.glob使用说明：https://cn.vitejs.dev/guide/features#glob-import
@@ -27,7 +27,7 @@ Object.keys(modules).forEach((key) => {
  * hash模式使用createWebHashHistory(): https://router.vuejs.org/zh/api/#Functions-createWebHashHistory
  */
 export const router: Router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   strict: true,
   scrollBehavior(_to, from, savedPosition) {
