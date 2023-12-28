@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, getCurrentInstance, defineProps, defineExpose } from 'vue'
+import { onMounted, getCurrentInstance, defineProps, defineExpose, ref } from 'vue'
 
 defineOptions({
   name: 'WChart'
@@ -38,6 +38,7 @@ const props = defineProps({
 })
 
 let chart: { setOption: (arg0: Record<string, any>) => void; resize: () => void }
+const wchart = ref(null)
 
 //声明周期函数，自动执行初始化
 onMounted(() => {
@@ -49,8 +50,7 @@ onMounted(() => {
 //初始化函数
 function init() {
   // 基于准备好的dom，初始化echarts实例
-  const { ctx } = getCurrentInstance() as any
-  const dom = ctx.$refs['wchart']
+  const dom = wchart.value
   // 通过 internalInstance.appContext.config.globalProperties 获取全局属性或方法
   let internalInstance = getCurrentInstance()
   let echarts = internalInstance?.appContext.config.globalProperties.$echarts
