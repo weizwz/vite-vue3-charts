@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 import axios from 'axios'
 import WChart from '@comp/chart/index.vue'
 import 'echarts/extension/bmap/bmap'
@@ -30,7 +31,7 @@ const option = {
     {
       type: 'heatmap',
       coordinateSystem: 'bmap',
-      data: [],
+      data: reactive([] as any[]),
       pointSize: 5,
       blurSize: 6
     }
@@ -61,7 +62,13 @@ const initBefore = () => {
   })
 }
 
-const initAfter = (chart) => {
+const initAfter = (chart: {
+  getModel: () => {
+    (): any
+    new (): any
+    getComponent: { (arg0: string): { (): any; new (): any; getBMap: { (): any; new (): any } }; new (): any }
+  }
+}) => {
   // 添加百度地图插件
   var bmap = chart.getModel().getComponent('bmap').getBMap()
   bmap.setMapStyleV2({

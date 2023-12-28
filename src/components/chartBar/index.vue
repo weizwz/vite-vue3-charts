@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { reactive } from 'vue'
 import WChart from '@comp/chart/index.vue'
 import { get_date } from '@/utils/date'
 
@@ -19,16 +20,14 @@ for (const item of area) {
     barMinHeight: 1,
     stack: 'a',
     barWidth: 20,
-    data: []
+    data: reactive([] as any[])
   }
   for (let i = 0; i < axis.length; i++) {
-    const last = i === 0 ? 0 : parseFloat(_series.data[i - 1].value)
-    const base = parseFloat(Math.random() * (maxT - minT) + minT)
-    const cha = base - last > 1 ? 0.2 : base - last < 0 ? -0.5 : parseFloat(base - last)
-    const t = (last + cha).toFixed(2)
-    _series.data[i] = {
-      value: t
-    }
+    const last = i === 0 ? 0 : parseFloat(_series.data[i - 1])
+    const base = Math.random() * (maxT - minT) + minT
+    const cha = base - last > 1 ? 0.2 : base - last < 0 ? -0.5 : base - last
+    const t: number = parseFloat((last + cha).toFixed(2))
+    _series.data.push(t)
   }
   series.push(_series)
 }
