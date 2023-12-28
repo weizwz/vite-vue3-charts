@@ -7,6 +7,7 @@ import { BorderBox8 as DvBorderBox8 } from '@kjgl77/datav-vue3'
 import WLeft from '@views/home/left.vue'
 import WCenter from '@views/home/center.vue'
 import WRight from '@views/home/right.vue'
+import WBottom from '@views/home/bottom.vue'
 
 defineOptions({
   name: 'V-home'
@@ -31,9 +32,7 @@ loaded()
       <div id="main">
         <div class="main-left">
           <dv-border-box13>
-            <div dv-bg class="content padding1">
-              <WLeft />
-            </div>
+            <div dv-bg class="content padding1"><WLeft /></div>
           </dv-border-box13>
         </div>
         <div class="main-right">
@@ -53,7 +52,7 @@ loaded()
           </div>
           <div class="main-right-bottom">
             <dv-border-box8 :dur="5">
-              <div dv-bg class="content padding1">dv-border-box8</div>
+              <div dv-bg class="content padding1"><WBottom /></div>
             </dv-border-box8>
           </div>
         </div>

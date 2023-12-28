@@ -64,7 +64,6 @@ const initBefore = () => {
 const initAfter = (chart) => {
   // 添加百度地图插件
   var bmap = chart.getModel().getComponent('bmap').getBMap()
-  console.log(bmap)
   bmap.setMapStyleV2({
     styleId: 'bc05830a75e51be40a38ffc9220613bb'
   })
