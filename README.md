@@ -26,3 +26,16 @@ npm run dev
 ```shell
 npm run build
 ```
+
+## 地图
+由于对百度地图api加了白名单，请自行替换为你的api地址。修改根目录下的 `index.html`：
+```html
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=你的ak"></script>
+```
+百度地图API设置白名单后，本地仍可调用方法：
+1. 假设百度白名单为 `*haha.com*`
+2. 本地修改hosts文件，文件位置 `C:\Windows\System32\drivers\etc`
+  ```txt
+  127.0.0.1         haha.com
+  ```
+3. 本地访问地址，使用 `haha.com:8000`，即可正常访问百度地图API
