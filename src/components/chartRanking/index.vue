@@ -14,11 +14,11 @@ const config = reactive({
       value: 100
     },
     {
-      name: '蜂窝无限热力',
+      name: '蜂窝炉火热力',
       value: 95
     },
     {
-      name: '暖手水宝热力',
+      name: '暖手宝心热力',
       value: 89
     },
     {
@@ -30,7 +30,7 @@ const config = reactive({
       value: 80
     },
     {
-      name: '全包大衣热力',
+      name: '大衣包身热力',
       value: 78
     },
     {
@@ -38,15 +38,15 @@ const config = reactive({
       value: 70
     },
     {
-      name: '吃饱喝足热力',
+      name: '吃喝不停热力',
       value: 65
     },
     {
-      name: '心疼空调热力',
+      name: '心动空调热力',
       value: 59
     },
     {
-      name: '耐冻不怕热力',
+      name: '耐冻全抗热力',
       value: 40
     },
     {

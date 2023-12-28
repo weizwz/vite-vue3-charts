@@ -33,3 +33,8 @@ body {
   padding: var(--padding);
   box-sizing: border-box;
 }
+
+/* 图表 */
+.dv-scroll-ranking-board .ranking-column .inside-column {
+  border-radius: 4px !important;
+}
