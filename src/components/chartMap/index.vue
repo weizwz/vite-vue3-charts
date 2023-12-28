@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import axios from 'axios'
 import WChart from '@comp/chart/index.vue'
 import 'echarts/extension/bmap/bmap'
 import xianJson from '@/assets/xian.json'
