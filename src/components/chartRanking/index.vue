@@ -48,6 +48,10 @@ const config = reactive({
     {
       name: '耐冻不怕热力',
       value: 40
+    },
+    {
+      name: '爱吃雪糕热力',
+      value: 30
     }
   ],
   unit: '% 满意度'
