@@ -7,7 +7,7 @@ export const useUserStore = defineStore('user', {
   state: () => {
     return {
       token: getToken() || 'EFA68205747',
-      userInfo: { name: 'weizwz', phone: '18392016879' }
+      userInfo: { name: 'github', phone: '18392016879' }
     }
   },
   getters: {

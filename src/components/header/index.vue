@@ -42,7 +42,9 @@ onMounted(() => {
         <div class="title">&nbsp;{{ props.title }}&nbsp;</div>
       </dv-decoration7>
     </div>
-    <div class="info">{{ username }}</div>
+    <div class="info">
+      <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">{{ username }}</a>
+    </div>
   </div>
 </template>
 
@@ -64,6 +66,9 @@ onMounted(() => {
     flex: 1;
     text-align: right;
     font-size: 1.2rem;
+    a {
+      color: #fff;
+    }
   }
   .title {
     font-size: 3rem;
@@ -83,6 +88,7 @@ onMounted(() => {
     font-weight: bold;
     color: transparent;
     background-clip: text;
+    -webkit-background-clip: text;
     -webkit-text-stroke: 2px var(--c);
   }
 
