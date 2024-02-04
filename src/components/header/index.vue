@@ -43,7 +43,8 @@ onMounted(() => {
       </dv-decoration7>
     </div>
     <div class="info">
-      <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">{{ username }}</a>
+      <a href="https://github.com/weizwz" target="_blank">{{ username }}</a>
+      <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">Gitee</a>
     </div>
   </div>
 </template>
@@ -68,6 +69,9 @@ onMounted(() => {
     font-size: 1.2rem;
     a {
       color: #fff;
+      &:first-child {
+        margin-right: 2rem;
+      }
     }
   }
   .title {
