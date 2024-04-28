@@ -65,7 +65,7 @@ export const sites = [
       color: '#d81e06'
     },
     label: {
-      position: 'bottom'
+      position: [16, 16]
     }
   },
   {

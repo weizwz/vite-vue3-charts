@@ -106,10 +106,19 @@ const getChartData = (nodes: any[], basic: boolean) => {
       nodeName,
       value: value,
       symbolSize: size,
-      symbol: svgPath ? 'path://' + svgPath : _symbol
+      symbol: svgPath ? 'path://' + svgPath : _symbol,
+      label: {
+        position: 'top',
+        fontSize: 16
+      },
+      emphasis: {
+        label: {
+          fontSize: 18
+        }
+      }
     }
     if (label) {
-      node.label = label
+      node.label = Object.assign(node.label, label)
     }
     if (symbolOffset) {
       node.symbolOffset = symbolOffset
