@@ -1,7 +1,7 @@
 export const sites = [
   {
     index: 0,
-    nodeName: '起点',
+    nodeName: '初始点',
     value: [400, 0],
     to: [1],
     label: {

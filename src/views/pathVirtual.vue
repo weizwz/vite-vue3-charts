@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import WHeader from '@/components/header/index.vue'
 import PathVirtual from '@/components/chartPathVirtual/index.vue'
+import { sites } from '@/components/chartPathVirtual/data'
 
 defineOptions({
   name: 'V-home'
@@ -14,6 +15,11 @@ const loaded = () => {
   }, 1000)
 }
 loaded()
+
+const sitesRef = ref(sites)
+const operations = computed(() => {
+  return sitesRef.value.filter((item) => item.index !== 999 && item.nodeName !== '')
+})
 </script>
 
 <template>
@@ -27,6 +33,14 @@ loaded()
         <dv-border-box13>
           <div dv-bg class="content">
             <PathVirtual />
+          </div>
+          <div class="operation">
+            <dv-border-box10>
+              <h3 class="operation-title">操作面板</h3>
+              <div class="wrapper">
+                <div v-for="item of operations" v-bind:key="item.index" class="operation-item">{{ item.nodeName }}</div>
+              </div>
+            </dv-border-box10>
           </div>
         </dv-border-box13>
       </div>
@@ -45,8 +59,45 @@ loaded()
     padding: 1rem 2rem 2rem;
     box-sizing: border-box;
     display: flex;
+    position: relative;
     .content {
       height: 100%;
+    }
+    .operation {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+      width: 50%;
+      height: 350px;
+      .operation-title {
+        margin: 6px 6px 0;
+        line-height: 42px;
+        text-indent: 10px;
+        background: rgba(29, 193, 245, 0.5);
+        border-radius: 6px 6px 0 0;
+        font-size: 16px;
+      }
+      .wrapper {
+        height: 252px;
+        width: calc(100% - 60px);
+        margin: 20px 30px 30px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .operation-item {
+          width: 15%;
+          height: 40px;
+          background: rgba(29, 193, 245, 0.6);
+          border-radius: 5px;
+          text-align: center;
+          line-height: 40px;
+          margin: 0 2.5%;
+          cursor: pointer;
+          &:hover {
+            background: #1dc1f5;
+          }
+        }
+      }
     }
   }
 }
