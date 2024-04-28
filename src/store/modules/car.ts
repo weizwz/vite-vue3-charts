@@ -4,7 +4,7 @@ import { sites } from '@/components/chartPathVirtual/data'
 export const useCarStore = defineStore('car', {
   state: () => {
     return {
-      position: sites[0].value,
+      position: sites[sites.length - 1].value,
       to: sites[0]
     }
   },

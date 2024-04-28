@@ -6,6 +6,6 @@ export interface UserState {
 }
 
 export interface CarState {
-  position: [number, number]
+  position: number[]
   to: pathVirtualNodeData
 }

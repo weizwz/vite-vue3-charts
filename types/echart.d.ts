@@ -10,17 +10,13 @@ export interface pathVirtualNodeData {
   itemStyle?: {
     color: string
   }
-  label: {
-    position: string
-    fontSize: number
-  }
-  emphasis: {
-    label: {
-      fontSize: number
-    }
+  label?: {
+    show?: boolean
+    position?: string
   }
   rippleEffect?: {
-    scale: string
+    scale: number
+    number: number
   }
 }
 

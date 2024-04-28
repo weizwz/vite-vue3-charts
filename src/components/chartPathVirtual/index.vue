@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref, toRaw } from 'vue'
 import WChart from '@comp/chart/index.vue'
 import { sites } from './data'
 import { pathVirtualNodeData, pathVirtualLineData } from 'types/echart'
+import { useCarStore } from '@store/car'
+
+const carStore = useCarStore()
 
 defineOptions({
   name: 'PathVirtual'
@@ -38,12 +41,12 @@ const option = {
   series: [
     {
       type: 'effectScatter',
-      showEffectOn: 'emphasis', // 'render' 绘制完成后显示特效,'emphasis' 高亮（hover）的时候显示特效
+      showEffectOn: 'render', // 'render' 绘制完成后显示特效,'emphasis' 高亮（hover）的时候显示特效
       label: {
         show: true,
         position: 'top',
         color: '#fff',
-        fontSize: 12,
+        fontSize: 16,
         formatter: (item: { data: { nodeName: any } }) => {
           return item.data.nodeName
         }
@@ -54,16 +57,15 @@ const option = {
       emphasis: {
         label: {
           color: '#43dcff',
-          fontSize: 14
+          fontSize: 18
         }
       },
       rippleEffect: {
         // color:'purple',  //涟漪颜色,默认为散点自身颜色
-        // brushType:'fill' //动画方式,全填充或只有线条,'stroke'
         period: 4, // 动画周期
         scale: '1', // 涟漪规模
-        brushType: 'stroke',
-        number: 1
+        brushType: 'stroke', //动画方式,全填充或只有线条,'fill' || 'stroke'
+        number: 0
       },
       data: <pathVirtualNodeData[]>[],
       zlevel: 3,
@@ -97,28 +99,23 @@ const getChartData = (nodes: any[], basic: boolean) => {
   const nodeData: pathVirtualNodeData[] = []
   const lineData: pathVirtualLineData[] = []
   for (var j = 0; j < nodes.length; j++) {
-    const { index, value, nodeName, svgPath, symbol, symbolSize, symbolOffset, itemStyle, label, to, rippleEffect } =
+    let { index, value, nodeName, svgPath, symbol, symbolSize, symbolOffset, itemStyle, label, to, rippleEffect } =
       nodes[j]
     const _symbol = symbol || 'circle'
-    const size = typeof symbolSize !== 'undefined' ? symbolSize : 12
+    const size = typeof symbolSize !== 'undefined' ? symbolSize : 10
+    if (index === 999) {
+      const carPosition = computed(() => carStore.position)
+      value = toRaw(carPosition.value)
+    }
     let node: pathVirtualNodeData = {
       index,
       nodeName,
       value: value,
       symbolSize: size,
-      symbol: svgPath ? 'path://' + svgPath : _symbol,
-      label: {
-        position: 'top',
-        fontSize: 16
-      },
-      emphasis: {
-        label: {
-          fontSize: 18
-        }
-      }
+      symbol: svgPath ? 'path://' + svgPath : _symbol
     }
     if (label) {
-      node.label = Object.assign(node.label, label)
+      node.label = label
     }
     if (symbolOffset) {
       node.symbolOffset = symbolOffset
