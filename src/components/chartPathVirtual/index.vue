@@ -12,8 +12,8 @@ defineOptions({
 // 监听 carStore
 const carStore = useCarStore()
 const carTo = computed(() => carStore.to)
-watch(carTo, (newValue) => {
-  console.log('carTo changed to: ', newValue)
+watch(carTo, () => {
+  updateData()
 })
 
 const option = {
@@ -73,8 +73,7 @@ const option = {
         number: 0
       },
       data: <pathVirtualNodeData[]>[],
-      zlevel: 3,
-      z: 3
+      z: 4
     },
     {
       type: 'lines',
@@ -91,14 +90,39 @@ const option = {
         show: false
       },
       data: <pathVirtualLineData[]>[],
-      zlevel: 2,
       z: 2
+    },
+    {
+      type: 'lines',
+      id: 'virtualLines',
+      polyline: false,
+      zlevel: 3,
+      coordinateSystem: 'cartesian2d',
+      lineStyle: {
+        type: 'solid',
+        width: 5,
+        color: '#30e470',
+        opacity: 1,
+        curveness: 0
+      },
+      effect: {
+        show: true,
+        constantSpeed: 80,
+        trailLength: 0.3,
+        // 箭头 M1023.97952 514.7904L512 0 0.02048 514.7904h301.32736v421.37088h421.30944v-421.37088h301.32224z
+        symbol:
+          'path://M877.763916 956.084191 510.975159 589.29441 144.186402 956.084191l-80.984453-80.983429 447.77321-447.769117 447.77321 447.769117L877.763916 956.084191zM877.763916 596.672448 510.975159 229.883691 144.186402 596.672448l-80.984453-80.989569 447.77321-447.768093 447.77321 447.768093L877.763916 596.672448zM877.763916 596.672448',
+        color: '#ffffff',
+        symbolSize: 8
+      },
+      data: <pathVirtualLineData[]>[],
+      z: 3
     }
   ]
 }
 
 /**
- * 数据处理
+ * 数据初始化处理
  */
 const getChartData = (nodes: any[], basic: boolean) => {
   const nodeData: pathVirtualNodeData[] = []
@@ -161,12 +185,17 @@ onMounted(() => {
 type ChildCtx = InstanceType<typeof WChart>
 // 要和子组件的 ref 名称一致
 const wchartRef = ref<ChildCtx | null>(null)
-
+// 初始化图表
 const changeData = () => {
   const { nodeData, lineData } = getChartData(sites, true)
   option.series[0].data = nodeData
   option.series[1].data = lineData
   wchartRef.value?.setData(option)
+}
+// 修改汽车位置，添加流动线路
+const updateData = () => {
+  console.log('正在更新线路')
+  option.series[2].data = []
 }
 </script>
 
