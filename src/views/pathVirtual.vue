@@ -3,6 +3,9 @@ import { computed, ref } from 'vue'
 import WHeader from '@/components/header/index.vue'
 import PathVirtual from '@/components/chartPathVirtual/index.vue'
 import { sites } from '@/components/chartPathVirtual/data'
+import { useCarStore } from '@store/car'
+
+const carStore = useCarStore()
 
 defineOptions({
   name: 'V-home'
@@ -20,6 +23,10 @@ const sitesRef = ref(sites)
 const operations = computed(() => {
   return sitesRef.value.filter((item) => item.index !== 999 && item.nodeName !== '')
 })
+
+const go = (idx: number) => {
+  carStore.setToIdx(idx)
+}
 </script>
 
 <template>
@@ -38,7 +45,10 @@ const operations = computed(() => {
             <dv-border-box10>
               <h3 class="operation-title">操作面板</h3>
               <div class="wrapper">
-                <div v-for="item of operations" v-bind:key="item.index" class="operation-item">{{ item.nodeName }}</div>
+                <div v-for="item of operations" v-bind:key="item.index" class="operation-item" @click="go(item.index)">
+                  <span class="go">➡️</span>
+                  {{ item.nodeName }}
+                </div>
               </div>
             </dv-border-box10>
           </div>
@@ -93,8 +103,16 @@ const operations = computed(() => {
           line-height: 40px;
           margin: 0 2.5%;
           cursor: pointer;
+          .go {
+            display: none;
+          }
           &:hover {
             background: #1dc1f5;
+            font-weight: bold;
+            .go {
+              display: inline-block;
+              transition: 0.5s;
+            }
           }
         }
       }

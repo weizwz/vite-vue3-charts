@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, toRaw } from 'vue'
+import { computed, onMounted, ref, toRaw, watch } from 'vue'
 import WChart from '@comp/chart/index.vue'
 import { sites } from './data'
 import { pathVirtualNodeData, pathVirtualLineData } from 'types/echart'
 import { useCarStore } from '@store/car'
 
-const carStore = useCarStore()
-
 defineOptions({
   name: 'PathVirtual'
+})
+
+// 监听 carStore
+const carStore = useCarStore()
+const carTo = computed(() => carStore.to)
+watch(carTo, (newValue) => {
+  console.log('carTo changed to: ', newValue)
 })
 
 const option = {
