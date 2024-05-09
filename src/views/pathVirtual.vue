@@ -43,11 +43,13 @@ const go = (idx: number) => {
           </div>
           <div class="operation">
             <dv-border-box10>
-              <h3 class="operation-title">操作面板</h3>
-              <div class="wrapper">
-                <div v-for="item of operations" v-bind:key="item.index" class="operation-item" @click="go(item.index)">
-                  <span class="go">➡️</span>
-                  {{ item.nodeName }}
+              <div class="content">
+                <h3 class="operation-title">操作面板</h3>
+                <div class="wrapper">
+                  <div v-for="item of operations" v-bind:key="item.index" class="operation-item" @click="go(item.index)">
+                    {{ item.nodeName }}
+                    <span class="go">➡️</span>
+                  </div>
                 </div>
               </div>
             </dv-border-box10>
@@ -79,8 +81,12 @@ const go = (idx: number) => {
       bottom: 30px;
       width: 50%;
       height: 350px;
+      .content {
+        padding: 4px;
+        box-sizing: border-box;
+      }
       .operation-title {
-        margin: 6px 6px 0;
+        margin: 0;
         line-height: 42px;
         text-indent: 10px;
         background: rgba(29, 193, 245, 0.5);
@@ -102,13 +108,17 @@ const go = (idx: number) => {
           text-align: center;
           line-height: 40px;
           margin: 0 2.5%;
+          position: relative;
           cursor: pointer;
           .go {
             display: none;
+            position: absolute;
+            right: 20px;
           }
           &:hover {
             background: #1dc1f5;
             font-weight: bold;
+            font-size: 18px;
             .go {
               display: inline-block;
               transition: 0.5s;
