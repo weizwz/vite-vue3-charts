@@ -46,9 +46,13 @@ const go = (idx: number) => {
               <div class="content">
                 <h3 class="operation-title">操作面板</h3>
                 <div class="wrapper">
-                  <div v-for="item of operations" v-bind:key="item.index" class="operation-item" @click="go(item.index)">
-                    {{ item.nodeName }}
-                    <span class="go">➡️</span>
+                  <div
+                    v-for="item of operations"
+                    v-bind:key="item.index"
+                    class="operation-item"
+                    @click="go(item.index)"
+                  >
+                    {{ item.nodeName }} <span class="go">➡️</span>
                   </div>
                 </div>
               </div>

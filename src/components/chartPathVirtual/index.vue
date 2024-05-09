@@ -72,16 +72,17 @@ const option = {
         brushType: 'stroke', //动画方式,全填充或只有线条,'fill' || 'stroke'
         number: 0
       },
+      symbolSize: 12,
       data: <pathVirtualNodeData[]>[],
-      z: 4
+      zlevel: 4
     },
     {
-      type: 'lines',
+      type: 'lines', // 基础线路
       polyline: false,
       coordinateSystem: 'cartesian2d',
       lineStyle: {
         type: 'solid',
-        width: 3,
+        width: 5,
         color: '#fbfcfd',
         opacity: 1,
         curveness: 0
@@ -90,13 +91,12 @@ const option = {
         show: false
       },
       data: <pathVirtualLineData[]>[],
-      z: 2
+      zlevel: 2
     },
     {
-      type: 'lines',
+      type: 'lines', // 运动线路
       id: 'virtualLines',
       polyline: false,
-      zlevel: 3,
       coordinateSystem: 'cartesian2d',
       lineStyle: {
         type: 'solid',
@@ -107,16 +107,15 @@ const option = {
       },
       effect: {
         show: true,
-        constantSpeed: 80,
+        constantSpeed: 120,
         trailLength: 0.3,
         // 箭头 M1023.97952 514.7904L512 0 0.02048 514.7904h301.32736v421.37088h421.30944v-421.37088h301.32224z
-        symbol:
-          'path://M877.763916 956.084191 510.975159 589.29441 144.186402 956.084191l-80.984453-80.983429 447.77321-447.769117 447.77321 447.769117L877.763916 956.084191zM877.763916 596.672448 510.975159 229.883691 144.186402 596.672448l-80.984453-80.989569 447.77321-447.768093 447.77321 447.768093L877.763916 596.672448zM877.763916 596.672448',
-        color: '#ffffff',
-        symbolSize: 8
+        symbol: 'arrow',
+        color: '#ffdb5c',
+        symbolSize: 10
       },
       data: <pathVirtualLineData[]>[],
-      z: 3
+      zlevel: 3
     }
   ]
 }
@@ -131,7 +130,6 @@ const getChartData = (nodes: any[], basic: boolean) => {
     let { index, value, nodeName, svgPath, symbol, symbolSize, symbolOffset, itemStyle, label, to, rippleEffect } =
       nodes[j]
     const _symbol = symbol || 'circle'
-    const size = typeof symbolSize !== 'undefined' ? symbolSize : 10
     if (index === 999) {
       const carPosition = computed(() => carStore.position)
       value = toRaw(carPosition.value)
@@ -140,8 +138,10 @@ const getChartData = (nodes: any[], basic: boolean) => {
       index,
       nodeName,
       value: value,
-      symbolSize: size,
       symbol: svgPath ? 'path://' + svgPath : _symbol
+    }
+    if (symbolSize) {
+      node.symbolSize = symbolSize
     }
     if (label) {
       node.label = label
@@ -177,6 +177,41 @@ const getChartData = (nodes: any[], basic: boolean) => {
   }
   return { nodeData, lineData }
 }
+/**
+ * 运动线路计算
+ */
+const getRunData = () => {
+  let nodeData = [carTo.value]
+  getRunNode(sites, nodeData, carTo.value)
+  // 计算线路
+  let lineData = []
+  // 最后一站点不需要再循环
+  for (let i = 0; i < nodeData.length - 1; i++) {
+    const item = nodeData[i]
+    let j = i
+    const nextItem = nodeData[j + 1]
+    const line: pathVirtualLineData = {
+      coords: [item.value, nextItem.value],
+      from: item.nodeName,
+      formIdx: item.index,
+      to: nextItem.nodeName,
+      toIdx: nextItem.index
+    }
+    lineData.push(line)
+  }
+  return lineData
+}
+// 从目的地倒序 递归计算需要经过哪些站点
+const getRunNode = (allNodes: any[], nodes: any[], toNode: any) => {
+  for (const item of allNodes) {
+    const toIdx = item.to
+    if (toIdx && toIdx?.indexOf(toNode.index) !== -1) {
+      nodes.unshift(item)
+      getRunNode(allNodes, nodes, item)
+      break
+    }
+  }
+}
 
 onMounted(() => {
   changeData()
@@ -194,8 +229,8 @@ const changeData = () => {
 }
 // 修改汽车位置，添加流动线路
 const updateData = () => {
-  console.log('正在更新线路')
-  option.series[2].data = []
+  option.series[2].data = getRunData()
+  wchartRef.value?.setData(option)
 }
 </script>
 

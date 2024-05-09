@@ -21,7 +21,7 @@ export interface pathVirtualNodeData {
 }
 
 export interface pathVirtualLineData {
-  coords: number[]
+  coords: number[number[]]
   from: string
   formIdx: number
   to: string
