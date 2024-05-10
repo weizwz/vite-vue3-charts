@@ -28,3 +28,8 @@ export interface pathVirtualLineData {
   toIdx: number
   attr?: string
 }
+
+export interface Point {
+  x: number
+  y: number
+}

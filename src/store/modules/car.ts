@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import { sites } from '@/components/chartPathVirtual/data'
+
 // 第一个参数是id，唯一
 export const useCarStore = defineStore('car', {
   state: () => {
     return {
-      position: sites[sites.length - 1].value,
+      position: sites[Math.floor(sites.length * Math.random())].value, // 起始位置随机
       to: sites[0]
     }
   },
