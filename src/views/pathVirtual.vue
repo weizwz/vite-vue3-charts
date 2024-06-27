@@ -115,9 +115,9 @@ const go = (idx: number) => {
           position: relative;
           cursor: pointer;
           .go {
-            display: none;
+            opacity: 0;
             position: absolute;
-            right: 20px;
+            right: 0;
           }
           &:hover {
             background: #1dc1f5;
@@ -126,6 +126,8 @@ const go = (idx: number) => {
             .go {
               display: inline-block;
               transition: 0.5s;
+              opacity: 1;
+              right: 10px;
             }
           }
         }
