@@ -4,6 +4,7 @@ import WChart from '@comp/chart/index.vue'
 import { sites } from './data'
 import { pathVirtualNodeData, pathVirtualLineData } from 'types/echart'
 import { useCarStore } from '@store/car'
+import { lineDirection } from '@/utils/tools'
 
 defineOptions({
   name: 'PathVirtual'
@@ -181,23 +182,35 @@ const getChartData = (nodes: any[], basic: boolean) => {
  * 运动线路计算
  */
 const getRunData = () => {
+  // 比较目的地和初始点
+  const direction = lineDirection(carStore.position, carTo.value.value)
+  // 如果是顺路径走，从目的地倒序查找到汽车位置为止
   let nodeData = [carTo.value]
-  getRunNode(sites, nodeData, carTo.value)
-  // 计算线路
+  // 线路数据
   let lineData = []
-  // 最后一站点不需要再循环
-  for (let i = 0; i < nodeData.length - 1; i++) {
-    const item = nodeData[i]
-    let j = i
-    const nextItem = nodeData[j + 1]
-    const line: pathVirtualLineData = {
-      coords: [item.value, nextItem.value],
-      from: item.nodeName,
-      formIdx: item.index,
-      to: nextItem.nodeName,
-      toIdx: nextItem.index
+  if (direction) {
+    getRunNode(sites, nodeData, carTo.value)
+    // 最后一站点不需要再循环
+    let findCar = false
+    for (let i = 0; i < nodeData.length - 1; i++) {
+      const item = nodeData[i]
+      let j = i
+      const nextItem = nodeData[j + 1]
+      // 从汽车所在位置开始
+      if (item.value[0] === carStore.position[0] && item.value[1] === carStore.position[1]) {
+        findCar = true
+      }
+      if (findCar) {
+        const line: pathVirtualLineData = {
+          coords: [item.value, nextItem.value],
+          from: item.nodeName,
+          formIdx: item.index,
+          to: nextItem.nodeName,
+          toIdx: nextItem.index
+        }
+        lineData.push(line)
+      }
     }
-    lineData.push(line)
   }
   return lineData
 }

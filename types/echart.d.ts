@@ -2,6 +2,7 @@ export interface pathVirtualNodeData {
   index: number
   nodeName: string
   value: number[]
+  from?: number
   to?: number[]
   symbol?: string
   svgPath?: string

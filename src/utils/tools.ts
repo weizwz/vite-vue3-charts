@@ -31,3 +31,35 @@ export const valueToPoint = (arr: number[]) => {
     y: arr[1]
   }
 }
+
+/**
+ * 获取路径方向
+ * @param start [x,y]
+ * @param end  [x,y]
+ * @return true 顺方向 false 逆方向
+ */
+export const lineDirection = (start: number[], end: number[]) => {
+  const x1 = start[0],
+    y1 = start[1],
+    x2 = end[0],
+    y2 = end[1]
+  console.log(x1, y1, x2, y2)
+  if (
+    (x2 === 400 && y2 === 10) || // 终点位置在起始点
+    (x1 === 200 && x2 === 400) || // 从原料厂到初始点
+    (x1 >= 1000 && y1 === 300 && x2 <= 1000) || // 从组装间之后的位置到组装件之前的位置
+    (x1 < 200 && y2 <= 400 && x2 <= 200) // 汽车在加油站左侧，目的地在加油站之前的位置
+  ) {
+    return false
+  } else if (
+    (x1 === 400 && x2 === 200) || // 起始点到原料厂
+    (x1 === 1000 && y1 === 400 && y2 === 300) || // 从组装间上一个位置到组装间之后位置
+    (x1 === 200 && y1 === 400 && x2 < 200) // 加油站到加油站左侧
+  ) {
+    return true
+  } else if (x1 < x2 || y1 < y2) {
+    return true
+  } else {
+    return false
+  }
+}
