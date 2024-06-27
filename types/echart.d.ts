@@ -6,14 +6,14 @@ export interface pathVirtualNodeData {
   to?: number[]
   symbol?: string
   svgPath?: string
-  symbolSize?: number
+  symbolSize?: number | number[]
   symbolOffset?: number[]
   itemStyle?: {
     color: string
   }
   label?: {
     show?: boolean
-    position?: string
+    position?: string | number[]
   }
   rippleEffect?: {
     scale: number

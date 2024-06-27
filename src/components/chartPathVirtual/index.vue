@@ -182,25 +182,25 @@ const getChartData = (nodes: any[], basic: boolean) => {
  * 运动线路计算
  */
 const getRunData = () => {
-  // 比较目的地和初始点
+  // 比较目的地和初始点，获取顺路还是逆行信息
   const direction = lineDirection(carStore.position, carTo.value.value)
-  // 如果是顺路径走，从目的地倒序查找到汽车位置为止
-  let nodeData = [carTo.value]
+  let nodeData: pathVirtualNodeData[] = [carTo.value]
   // 线路数据
   let lineData = []
+  // 如果是顺路径走，从目的地倒序查找到汽车位置为止
   if (direction) {
-    getRunNode(sites, nodeData, carTo.value)
+    getRunNodeTo(sites, nodeData, carTo.value)
     // 最后一站点不需要再循环
-    let findCar = false
+    let findStart = false
     for (let i = 0; i < nodeData.length - 1; i++) {
       const item = nodeData[i]
       let j = i
       const nextItem = nodeData[j + 1]
       // 从汽车所在位置开始
       if (item.value[0] === carStore.position[0] && item.value[1] === carStore.position[1]) {
-        findCar = true
+        findStart = true
       }
-      if (findCar) {
+      if (findStart) {
         const line: pathVirtualLineData = {
           coords: [item.value, nextItem.value],
           from: item.nodeName,
@@ -211,16 +211,69 @@ const getRunData = () => {
         lineData.push(line)
       }
     }
+  } else {
+    // 如果是逆行，从当前位置倒序查找路径，直到找到目的地为止(经过加油站的时候，部分路径可能是顺行)
+    // 获取当前车所在站点
+    let curSite: pathVirtualNodeData = sites[0]
+    for (const item of sites) {
+      if (carStore.position[0] === item.value[0] && carStore.position[1] === item.value[1]) {
+        curSite = item
+        break
+      }
+    }
+    nodeData = [curSite]
+    getRunNodeFrom(sites, nodeData, curSite)
+    console.log(nodeData)
+
+    // 最后一站点不需要再循环
+    for (let i = 0; i < nodeData.length - 1; i++) {
+      const item = nodeData[i]
+      let j = i
+      const nextItem = nodeData[j + 1]
+      // 找到目的地后结束循环
+      if (item.value[0] === carTo.value.value[0] && item.value[1] === carTo.value.value[1]) {
+        break
+      }
+      const line: pathVirtualLineData = {
+        coords: [item.value, nextItem.value],
+        from: item.nodeName,
+        formIdx: item.index,
+        to: nextItem.nodeName,
+        toIdx: nextItem.index
+      }
+      lineData.push(line)
+    }
   }
   return lineData
 }
-// 从目的地倒序 递归计算需要经过哪些站点
-const getRunNode = (allNodes: any[], nodes: any[], toNode: any) => {
+/**
+ * 从目的地倒序 递归计算需要经过哪些站点
+ * @param allNodes 所有站点
+ * @param nodes 需要站点
+ * @param toNode 目的地站点信息
+ */
+const getRunNodeTo = (allNodes: any[], nodes: any[], toNode: pathVirtualNodeData) => {
   for (const item of allNodes) {
     const toIdx = item.to
     if (toIdx && toIdx?.indexOf(toNode.index) !== -1) {
       nodes.unshift(item)
-      getRunNode(allNodes, nodes, item)
+      getRunNodeTo(allNodes, nodes, item)
+      break
+    }
+  }
+}
+/**
+ * 从目的地倒序 递归计算需要经过哪些站点
+ * @param allNodes 所有站点
+ * @param nodes 需要站点
+ * @param toNode 目的地站点信息
+ */
+const getRunNodeFrom = (allNodes: any[], nodes: any[], toNode: pathVirtualNodeData) => {
+  for (const item of allNodes) {
+    const toIdx = item.to
+    if (toIdx && toIdx?.indexOf(toNode.index) !== -1) {
+      nodes.push(item)
+      getRunNodeFrom(allNodes, nodes, item)
       break
     }
   }
