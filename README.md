@@ -7,6 +7,7 @@ vite5 + vue3 + ts + datav-vue3 + echarts + 百度地图 大屏展示
 预览地址 https://weizwz.com/vite-vue3-charts/
 
 ![image](src/assets/20231228_194914.png)
+![image](src/assets/28-6-2024_11212_wei.com.jpeg)
 
 **本项目数据重属虚构，请勿商用**
 
