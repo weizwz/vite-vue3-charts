@@ -6,6 +6,7 @@ import { sites } from '@/components/chartPathVirtual/data'
 import { useCarStore } from '@store/car'
 
 const carStore = useCarStore()
+const carTo = computed(() => carStore.to)
 
 defineOptions({
   name: 'V-home'
@@ -49,7 +50,7 @@ const go = (idx: number) => {
                   <div
                     v-for="item of operations"
                     v-bind:key="item.index"
-                    class="operation-item"
+                    :class="{ 'operation-item': true, active: item.index === carTo.index }"
                     @click="go(item.index)"
                   >
                     {{ item.nodeName }} <span class="go">➡️</span>
@@ -119,7 +120,8 @@ const go = (idx: number) => {
             position: absolute;
             right: 0;
           }
-          &:hover {
+          &:hover,
+          &.active {
             background: #1dc1f5;
             font-weight: bold;
             font-size: 18px;
