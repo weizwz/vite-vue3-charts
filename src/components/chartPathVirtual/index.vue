@@ -222,8 +222,31 @@ const getRunData = () => {
       }
     }
     nodeData = [curSite]
-    getRunNodeFrom(sites, nodeData, curSite)
-    console.log(nodeData)
+    // 获取到加油站路径
+    getRunNodeStation(sites, nodeData, curSite)
+    // 加油站之后的站点
+    let siteMore: pathVirtualNodeData[] = []
+
+    // 获取加油站到目的地地点
+    if (carTo.value.index === 7) {
+      // 加油站到休息区
+      nodeData.push(sites[7])
+    } else if (carTo.value.index === 19) {
+      // 加油站到维修站
+      siteMore.push(sites[6])
+      siteMore.push(sites[19])
+      nodeData = nodeData.concat(siteMore)
+    } else if (getRunNodeStationStart(sites, siteMore, sites[5], carTo.value)) {
+      // 加油站到起始点
+      nodeData = nodeData.concat(siteMore)
+    } else {
+      // 加油站到右侧出货间
+      siteMore = [carTo.value]
+      getRunNodeStation(sites, siteMore, carTo.value)
+      siteMore.splice(-1, 1)
+      // 去除多余加油站
+      nodeData = nodeData.concat(siteMore.reverse())
+    }
 
     // 最后一站点不需要再循环
     for (let i = 0; i < nodeData.length - 1; i++) {
@@ -252,7 +275,7 @@ const getRunData = () => {
  * @param nodes 需要站点
  * @param toNode 目的地站点信息
  */
-const getRunNodeTo = (allNodes: any[], nodes: any[], toNode: pathVirtualNodeData) => {
+const getRunNodeTo = (allNodes: pathVirtualNodeData[], nodes: pathVirtualNodeData[], toNode: pathVirtualNodeData) => {
   for (const item of allNodes) {
     const toIdx = item.to
     if (toIdx && toIdx?.indexOf(toNode.index) !== -1) {
@@ -263,20 +286,55 @@ const getRunNodeTo = (allNodes: any[], nodes: any[], toNode: pathVirtualNodeData
   }
 }
 /**
- * 从目的地倒序 递归计算需要经过哪些站点
+ * 从目的地倒序 递归计算需要经过哪些站点，截至到加油站为止
  * @param allNodes 所有站点
  * @param nodes 需要站点
  * @param toNode 目的地站点信息
  */
-const getRunNodeFrom = (allNodes: any[], nodes: any[], toNode: pathVirtualNodeData) => {
+const getRunNodeStation = (
+  allNodes: pathVirtualNodeData[],
+  nodes: pathVirtualNodeData[],
+  toNode: pathVirtualNodeData
+) => {
   for (const item of allNodes) {
     const toIdx = item.to
     if (toIdx && toIdx?.indexOf(toNode.index) !== -1) {
       nodes.push(item)
-      getRunNodeFrom(allNodes, nodes, item)
+      if (item.index === 5) {
+        return
+      }
+      getRunNodeStation(allNodes, nodes, item)
       break
     }
   }
+}
+
+/**
+ * 从加油站开始直到找到目的地为止
+ * @param allNodes 所有站点
+ * @param nodes 需要站点
+ * @param toNode 目的地站点信息
+ */
+const getRunNodeStationStart = (
+  allNodes: pathVirtualNodeData[],
+  nodes: pathVirtualNodeData[],
+  station: pathVirtualNodeData,
+  toNode: pathVirtualNodeData
+): boolean => {
+  let findSite: boolean = false
+  for (const item of allNodes) {
+    const toIdx = item.to
+    if (toIdx && toIdx?.indexOf(station.index) !== -1) {
+      nodes.push(item)
+      // 找到目的地
+      if (item.index === toNode.index) {
+        return true
+      }
+      findSite = getRunNodeStationStart(allNodes, nodes, item, toNode)
+      break
+    }
+  }
+  return findSite
 }
 
 onMounted(() => {
