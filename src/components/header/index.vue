@@ -35,7 +35,9 @@ onMounted(() => {
 <template>
   <div class="w-header">
     <div class="logo">
-      <img ref="logoDom" alt="logo" width="120" />
+      <router-link to="/">
+        <img ref="logoDom" alt="logo" width="120" />
+      </router-link>
     </div>
     <div class="title-wrapper">
       <dv-decoration7>
@@ -45,6 +47,7 @@ onMounted(() => {
     <div class="info">
       <a href="https://github.com/weizwz" target="_blank">{{ username }}</a>
       <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">Gitee</a>
+      <router-link to="/path/virtual">其他</router-link>
     </div>
   </div>
 </template>
@@ -59,7 +62,7 @@ onMounted(() => {
   .logo {
     flex: 1;
     font-size: 2rem;
-    > img {
+    a > img {
       vertical-align: middle;
     }
   }
@@ -69,8 +72,9 @@ onMounted(() => {
     font-size: 1.2rem;
     a {
       color: #fff;
-      &:first-child {
-        margin-right: 2rem;
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
