@@ -45,4 +45,4 @@ npm run build
 
 ## 文档
 ### 1. vite+vue3 配合 echarts 使用文档
-[vue3+ts打开echarts的正确方式](https://weizwz.com/posts/a31b36c6.html)
+[vue3+ts打开echarts的正确方式](https://note.weizwz.com/vuejs/apply/vue3-ts-echarts)
