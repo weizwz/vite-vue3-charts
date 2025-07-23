@@ -34,14 +34,12 @@
   },
   "include": [ // 需要检测的文件
     "src/**/*.ts",
-    "build/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/**/*.vue",
     "mock/*.ts",
-    "types/*.d.ts",
-    "vite.config.ts"
+    "types/*.d.ts"
   ], 
   "exclude": [ // 不需要检测的文件
     "dist",

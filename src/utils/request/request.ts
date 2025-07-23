@@ -19,10 +19,10 @@ interface RequestInternalAxiosRequestConfig extends InternalAxiosRequestConfig {
 
 // 拦截器
 interface InterceptorHooks {
-  requestInterceptor?: (config: RequestInternalAxiosRequestConfig) => RequestInternalAxiosRequestConfig
-  requestInterceptorCatch?: (error: any) => any
-  responseInterceptor?: (response: AxiosResponse) => AxiosResponse
-  responseInterceptorCatch?: (error: any) => any
+  requestInterceptor?: (_config: RequestInternalAxiosRequestConfig) => RequestInternalAxiosRequestConfig
+  requestInterceptorCatch?: (_error: any) => any
+  responseInterceptor?: (_response: AxiosResponse) => AxiosResponse
+  responseInterceptorCatch?: (_error: any) => any
 }
 // 扩展 AxiosRequestConfig，showLoading 给实例默认增加loading，interceptorHooks 拦截
 interface RequestConfig extends AxiosRequestConfig {
@@ -90,17 +90,17 @@ class Request {
     })
     // 响应后关闭loading
     this.instance.interceptors.response.use(
-      (res) => {
+      (response) => {
         if (this.loading) this.loading = false
-        return res
+        return response
       },
-      (err) => {
-        const { response, message } = err
+      (error) => {
+        const { response, message } = error
         if (this.loading) this.loading = false
         // 根据不同状态码，返回不同信息
         const messageStr = response ? ErrMessage(response.status) : message || '请求失败，请重试'
         window.alert(messageStr)
-        return Promise.reject(err)
+        return Promise.reject(error)
       }
     )
     /**

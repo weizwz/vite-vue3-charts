@@ -1,7 +1,0 @@
-node_modules
-dist
-public
-*.md
-*.txt
-.vscode
-index.html

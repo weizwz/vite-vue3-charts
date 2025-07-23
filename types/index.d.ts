@@ -1,6 +1,6 @@
 type TargetContext = '_self' | '_blank'
-type EmitType = (event: string, ...args: any[]) => void
-type AnyFunction<T> = (...args: any[]) => T
+type EmitType = (_event: string, ..._args: any[]) => void
+type AnyFunction<T> = (..._args: any[]) => T
 type PropType<T> = VuePropType<T>
 type Writable<T> = {
   -readonly [P in keyof T]: T[P]
@@ -16,8 +16,8 @@ interface ViteEnv {
 }
 
 interface Fn<T = any, R = T> {
-  (...arg: T[]): R
+  (..._arg: T[]): R
 }
 interface PromiseFn<T = any, R = T> {
-  (...arg: T[]): Promise<R>
+  (..._arg: T[]): Promise<R>
 }

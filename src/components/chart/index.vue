@@ -37,7 +37,7 @@ const props = defineProps({
   }
 })
 
-let chart: { setOption: (arg0: Record<string, any>) => void; resize: () => void }
+let chart: { setOption: (_option: Record<string, any>) => void; resize: () => void }
 const wchart = ref(null)
 
 //声明周期函数，自动执行初始化

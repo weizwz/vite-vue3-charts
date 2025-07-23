@@ -58,7 +58,7 @@ const initAfter = (chart: {
   getModel: () => {
     (): any
     new (): any
-    getComponent: { (arg0: string): { (): any; new (): any; getBMap: { (): any; new (): any } }; new (): any }
+    getComponent: { (_componentName: string): { (): any; new (): any; getBMap: { (): any; new (): any } }; new (): any }
   }
 }) => {
   // 添加百度地图插件
