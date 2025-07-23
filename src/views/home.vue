@@ -68,7 +68,7 @@ loaded()
 
   #main {
     width: 100%;
-    height: calc(100% - 80px);
+    height: calc(100% - 120px);
     padding: 1rem 2rem 2rem;
     box-sizing: border-box;
     display: flex;

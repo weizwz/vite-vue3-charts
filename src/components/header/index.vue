@@ -25,11 +25,57 @@ const props = defineProps({
 })
 
 const logoDom = ref()
+const isFullscreen = ref(false)
+
 //声明周期函数，自动执行初始化
 onMounted(() => {
   const dom = logoDom.value
   dom.src = props.logo
+
+  // 监听全屏状态变化
+  document.addEventListener('fullscreenchange', handleFullscreenChange)
+  document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+  document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+  document.addEventListener('MSFullscreenChange', handleFullscreenChange)
 })
+
+// 处理全屏状态变化
+const handleFullscreenChange = () => {
+  isFullscreen.value = !!(
+    document.fullscreenElement ||
+    (document as any).webkitFullscreenElement ||
+    (document as any).mozFullScreenElement ||
+    (document as any).msFullscreenElement
+  )
+}
+
+// 切换全屏
+const toggleFullscreen = () => {
+  if (!isFullscreen.value) {
+    // 进入全屏
+    const element = document.documentElement
+    if (element.requestFullscreen) {
+      element.requestFullscreen()
+    } else if ((element as any).webkitRequestFullscreen) {
+      ;(element as any).webkitRequestFullscreen()
+    } else if ((element as any).mozRequestFullScreen) {
+      ;(element as any).mozRequestFullScreen()
+    } else if ((element as any).msRequestFullscreen) {
+      ;(element as any).msRequestFullscreen()
+    }
+  } else {
+    // 退出全屏
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    } else if ((document as any).webkitExitFullscreen) {
+      ;(document as any).webkitExitFullscreen()
+    } else if ((document as any).mozCancelFullScreen) {
+      ;(document as any).mozCancelFullScreen()
+    } else if ((document as any).msExitFullscreen) {
+      ;(document as any).msExitFullscreen()
+    }
+  }
+}
 </script>
 
 <template>
@@ -46,15 +92,23 @@ onMounted(() => {
     </div>
     <div class="info">
       <a href="https://github.com/weizwz" target="_blank">{{ username }}</a>
-      <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">Gitee</a>
+      <!-- <a href="https://gitee.com/weizwz/vite-vue3-charts" target="_blank">Gitee</a> -->
       <router-link to="/path/virtual">其他</router-link>
+      <button class="fullscreen-btn" @click="toggleFullscreen" :title="isFullscreen ? '退出全屏' : '进入全屏'">
+        <svg v-if="!isFullscreen" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+        </svg>
+        <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
+        </svg>
+      </button>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .w-header {
-  height: 80px;
+  height: 120px;
   padding: 0 4rem;
   display: flex;
   justify-content: center;
@@ -70,11 +124,38 @@ onMounted(() => {
     flex: 1;
     text-align: right;
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2rem;
     a {
       color: #fff;
-      margin-right: 2rem;
-      &:last-child {
-        margin-right: 0;
+    }
+    .fullscreen-btn {
+      background: transparent;
+      border: 2px solid var(--main-color);
+      color: var(--main-color);
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: var(--main-color);
+        color: #fff;
+        transform: scale(1.05);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
   }
